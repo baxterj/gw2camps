@@ -3,7 +3,7 @@
 		<div class="container">
 			<a class="brand" href="index.php">GW2 Camps</a>
 			<ul class="nav">
-				<li><a href="allcamps.php">See Camps</a></li>
+				<li><a href="allcamps.php">See Camps for last Session</a></li>
 			</ul>
 		</div>
 	</div>

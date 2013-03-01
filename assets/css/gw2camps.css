@@ -9,9 +9,8 @@
 }
 
 footer{
-	position: absolute;
+	margin-top: 20px;
 	width: 100%;
-	bottom: 0;
 	padding-top:5px;
 	background-color: #111
 }
@@ -25,4 +24,62 @@ footer{
 
 .marginTopRow{
 	margin-top:10px;
+}
+
+.border-info{
+	color: #BBB;
+	padding: 10px;
+	background-position: top;
+	background-repeat: repeat-x;
+	border: 1px #DDD solid;
+}
+
+.border-info th{
+	font-style: italic;
+}
+
+.border-info select{
+	width:80px;
+}
+
+.border-info select option{
+	height: 30px;
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+.border-info tr td:first-child{
+	font-weight: bold;
+}
+
+#bl-red{
+	background-image: url('../img/bg-red.png')
+}
+
+#bl-green{
+	background-image: url('../img/bg-green.png')
+}
+
+#bl-blue{
+	background-image: url('../img/bg-blue.png')
+}
+
+#bl-eb{
+	background-image: url('../img/bg-eb.png')
+}
+
+.opt-red{
+	background-image: url('../img/camp_red.png')
+}
+
+.opt-green{
+	background-image: url('../img/camp_green.png')
+}
+
+.opt-blue{
+	background-image: url('../img/camp_blue.png')
+}
+
+.opt-grey{
+	background-image: url('../img/camp_grey.png')
 }

@@ -16,6 +16,16 @@
 			validateField($('#greenServer'), 'Green Server Name', $('#newErrorMessage'), 'alphanum', true, 3, 60) &&
 			validateField($('#blueServer'), 'Blue Server Name', $('#newErrorMessage'), 'alphanum', true, 3, 60)
 		}
+
+		function joinExistingSession(){
+			if(validateExistingFields()){
+				getSession($('#existingSessionId').val(), $('#existingErrorMessage'), redirectExisting)
+			}
+		}
+
+		function validateExistingFields(){
+			return validateField($('#existingSessionId'), 'New Session Name', $('#existingErrorMessage'), 'alphanum', true, 3, 60)
+		}
 		</script>
 
 
@@ -46,22 +56,23 @@
 
 				<div class="row-fluid marginTopRow">
 					<div class="span4 greyBG rounded-corners">
-						Create new session<br />
-						<input id="#newSessionId" placeholder="Session Name" type="text"/><br/>
-						<input id="#redServer" placeholder="Red Server" type="text"/><br/>
-						<input id="#greenServer" placeholder="Green Server" type="text"/><br/>
-						<input id="#blueServer" placeholder="Blue Server" type="text"/><br/>
-						<button class="btn btn-primary btn-large">Create</button>
-						<div class="span12 errorMessage" id="#newErrorMessage">&nbsp;</div>
+						<p>Create new session</p>
+						<input id="newSessionId" placeholder="Session Name" type="text"/><br/>
+						<input id="redServer" placeholder="Red Server" type="text"/><br/>
+						<input id="greenServer" placeholder="Green Server" type="text"/><br/>
+						<input id="blueServer" placeholder="Blue Server" type="text"/><br/>
+						<button class="btn btn-primary btn-large" onclick="sendNewSession()">Create</button>
+						<div class="span12 errorMessage" id="newErrorMessage">&nbsp;</div>
 					</div>
 					<div class="span4 offset1 greyBG rounded-corners">
-						Join existing session<br />
-						<input id="#existingSessionId" placeholder="Session Name" type="text"/><br/>
-						<button class="btn btn-primary btn-large">Join</button>
+						<p>Join existing session</p>
+						<input id="existingSessionId" placeholder="Session Name" type="text"/><br/>
+						<button class="btn btn-primary btn-large" onclick="joinExistingSession()">Join</button>
+						<div class="span12 errorMessage" id="existingErrorMessage">&nbsp;</div>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12 errorMessage" id="#ajaxMessage">&nbsp;</div>
+					<div class="span12 errorMessage" id="ajaxMessage">&nbsp;</div>
 				</div>
 
 			</div>

@@ -1,8 +1,15 @@
 var apiUrl = 'http://agile-dusk-2349.herokuapp.com/api/v1/'
 
 
+	
+
+
 function setKey(newKey){
-	window.localStorage.getItem("key", newKey)
+	window.localStorage.setItem("key", newKey)
+}
+
+function getKey(){
+	return window.localStorage.getItem("key")
 }
 
 function isLoggedIn(){
@@ -19,6 +26,125 @@ function createNewSession(key, red, green, blue){
 
 	sendAjax(data, $('#ajaxMessage'), successCreate, 'session', 'POST', false)
 }
+
+function successCreate(data, messageTarget){
+	setKey(data.key)
+	window.location = 'allcamps.php'
+}
+
+function getSession(key, messageTarget, successFunc){
+	setKey(key)
+	sendAjax(null, messageTarget, successFunc, 'session', 'GET', true)
+}
+
+function redirectExisting(data, messageTarget){
+	if(data.meta.total_count > 0){
+		window.location = 'allcamps.php'
+	}else{
+		messageTarget.html('Session not found')
+	}
+	
+}
+
+function updateSession(data, messageTarget){
+	if(data.meta.total_count < 1){
+		messageTarget.html('Session not found')
+	}else{
+		for(var i = 0; i < data.objects[0].borderlands.length; i++){
+			updateBorderland(data.objects[0].borderlands[i])
+		}
+		setChangeListeners()
+	}
+}
+
+function updateBorderland(data){
+	var html = '<b><p>'+data.server+'</p></b>'
+	html += '<table class="table">\n'
+	html+= '<th><td>Colour</td><td>Since last Flip</td><td>Last Update</td><td>Flip</td>\n'
+	for(var i = 0; i < data.camps.length; i++){
+		html+= '<tr>\n'
+		html+= '<td>'+data.camps[i].name +'</td>'
+		html+= '<td id="img-'+data.camps[i].id+'"><img src="assets/img/camp_'+data.camps[i].color + '.png"/></td>'
+		html+= '<td id="flip-'+data.camps[i].id+'">'+timeSpentSince(processDate(data.camps[i].lastChanged))+ '</td>'
+		html+= '<td id="update-'+data.camps[i].id+'">'+timeSpentSince(processDate(data.camps[i].lastUpdate)) + '</td>'
+		html+= '<td id="submit-'+data.camps[i].id+'">'+genSelectBox() + '</td>'
+		
+	}
+
+	$('#bl-'+data.name).html(html)
+	for(var i = 0; i < data.camps.length; i++){
+		startCount($('#flip-'+data.camps[i].id))
+		startCount($('#update-'+data.camps[i].id))
+	}
+
+	
+}
+
+function genSelectBox(){
+	var html = '<select>\n'
+	html += '<option value="blank">&nbsp;</option>\n'
+	html += '<option class="opt-red" value="red">Red</option>\n'
+	html += '<option class="opt-green" value="green">Green</option>\n'
+	html += '<option class="opt-blue" value="blue">Blue</option>\n'
+	html += '<option class="opt-grey" value="grey">Grey</option>\n'
+	html += '</select>'
+	return html
+}
+
+function setChangeListeners(){
+	$('.border-info select').on('change', function(){
+		if(this.value != 'blank'){
+			updateCamp($(this).parent().attr('id').split('-')[1], this.value)
+		}
+		
+	})
+}
+
+function updateCamp(id, color){
+	var data = JSON.stringify({
+		"id": id,
+		"color": color
+	})
+
+	sendAjax(data, $('#sessionUpdateError'), successUpdateCamp, 'updatecamp', 'POST', true)
+	
+	
+}
+
+function successUpdateCamp(data, messageTarget){
+	$('#img-'+data.id).html('<img src="assets/img/camp_'+data.color + '.png"/>')
+	$('#flip-'+data.id).html(timeSpentSince(processDate(data.lastChanged)))
+	$('#update-'+data.id).html(timeSpentSince(processDate(data.lastUpdate)))
+}
+
+function processDate(dateString){
+	//datestrings come in y m d h m s
+	var str = dateString.split(' ')
+	return new Date(str[0], str[1]-1, str[2], str[3], str[4], str[5])
+}
+
+function timeSpentSince(infoDate){
+	var localTime = new Date()
+	var delta = (localTime-infoDate) / 1000 // seconds
+
+	var diffHrs = Math.floor(delta / 3600) % 24;
+	var diffMins = Math.floor(delta / 60) % 60;
+	var diffSecs = Math.floor(delta)% 60;
+	return doubleDigits(diffHrs) + ':' + doubleDigits(diffMins) + ':' + doubleDigits(diffSecs)
+
+
+}
+
+function doubleDigits(num){
+	if(num < 10){
+		return '0'+num
+	}else{
+		return num
+	}
+}
+
+
+
 
 function validateField(field, fieldName, messageTarget, rule, required, min, max){
 	if(messageTarget != null){
@@ -113,3 +239,49 @@ function sendAjax(data, messageTarget, successFunc, apiLocation, reqType, useAut
 
 }
 
+
+
+var timers = []
+function startCount(element)
+{
+	timers.push(setInterval(function(){
+						count(element)
+						},1000));
+}
+
+
+function count(elem)
+{
+	//console.log('count')
+	var time_shown = elem.text()
+        var time_chunks = time_shown.split(":");
+        var hour, mins, secs;
+ 
+        hour=Number(time_chunks[0]);
+        mins=Number(time_chunks[1]);
+        secs=Number(time_chunks[2]);
+        secs++;
+            if (secs==60){
+                secs = 0;
+                mins=mins + 1;
+               } 
+              if (mins==60){
+                mins=0;
+                hour=hour + 1;
+              }
+              if (hour==13){
+                hour=1;
+              }
+ 		
+        elem.html(plz(hour) +":" + plz(mins) + ":" + plz(secs));
+ 
+}
+ 
+function plz(digit){
+ 
+    var zpad = digit + '';
+    if (digit < 10) {
+        zpad = "0" + zpad;
+    }
+    return zpad;
+}
