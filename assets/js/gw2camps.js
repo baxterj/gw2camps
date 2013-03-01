@@ -125,7 +125,10 @@ function processDate(dateString){
 
 function timeSpentSince(infoDate){
 	var localTime = new Date()
-	var delta = (localTime-infoDate) / 1000 // seconds
+	console.log(localTime)
+	console.log(toUTCTime(localTime))
+	var delta = (toUTCTime(localTime)-infoDate) / 1000 // seconds
+	
 
 	var diffHrs = Math.floor(delta / 3600) % 24;
 	var diffMins = Math.floor(delta / 60) % 60;
@@ -133,6 +136,10 @@ function timeSpentSince(infoDate){
 	return doubleDigits(diffHrs) + ':' + doubleDigits(diffMins) + ':' + doubleDigits(diffSecs)
 
 
+}
+
+function toUTCTime(now){
+	return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
 }
 
 function doubleDigits(num){

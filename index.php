@@ -30,14 +30,14 @@
 
 
 		<div class="bodybg">
-			<header class="firstRow">
+			<div class="firstRow">
 				<div class="container">
 					<div class="span12">
 						<h1>Welcome to Guild Wars 2 Camps</h1>
 						<h3>Community information sharing for WvWvW supply camps</h3>	
 					</div>
 				</div>
-			</header>
+			</div>
 
 			<div class="container">
 

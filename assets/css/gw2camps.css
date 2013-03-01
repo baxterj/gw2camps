@@ -1,6 +1,6 @@
 .firstRow{
 	margin-top: 60px;
-	height: 140px;
+	min-height: 140px;
 }
 
 .greyBG{
@@ -32,6 +32,7 @@ footer{
 	background-position: top;
 	background-repeat: repeat-x;
 	border: 1px #DDD solid;
+	min-width: 400px;
 }
 
 .border-info th{
