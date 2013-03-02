@@ -50,6 +50,7 @@ function updateSession(data, messageTarget){
 	if(data.meta.total_count < 1){
 		messageTarget.html('Session not found')
 	}else{
+		$('#sessionName').html(data.objects[0].key)
 		for(var i = 0; i < data.objects[0].borderlands.length; i++){
 			updateBorderland(data.objects[0].borderlands[i])
 		}
@@ -101,6 +102,7 @@ function setChangeListeners(){
 }
 
 function updateCamp(id, color){
+
 	var data = JSON.stringify({
 		"id": id,
 		"color": color
@@ -125,17 +127,14 @@ function processDate(dateString){
 
 function timeSpentSince(infoDate){
 	var localTime = new Date()
-	console.log(localTime)
-	console.log(toUTCTime(localTime))
-	var delta = (toUTCTime(localTime)-infoDate) / 1000 // seconds
+	var delta = ((toUTCTime(localTime)-infoDate) / 1000) +2 // seconds
+	delta=Math.max(delta, 1)
 	
 
 	var diffHrs = Math.floor(delta / 3600) % 24;
 	var diffMins = Math.floor(delta / 60) % 60;
 	var diffSecs = Math.floor(delta)% 60;
 	return doubleDigits(diffHrs) + ':' + doubleDigits(diffMins) + ':' + doubleDigits(diffSecs)
-
-
 }
 
 function toUTCTime(now){
@@ -246,9 +245,8 @@ function sendAjax(data, messageTarget, successFunc, apiLocation, reqType, useAut
 
 }
 
-
-
 var timers = []
+var updateTimers = true
 function startCount(element)
 {
 	timers.push(setInterval(function(){
@@ -279,8 +277,10 @@ function count(elem)
               if (hour==13){
                 hour=1;
               }
- 		
-        elem.html(plz(hour) +":" + plz(mins) + ":" + plz(secs));
+
+ 	if(updateTimers){
+		elem.html(plz(hour) +":" + plz(mins) + ":" + plz(secs));
+	}
  
 }
  

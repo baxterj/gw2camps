@@ -18,7 +18,7 @@
 		<div class="bodybg">
 			<div class="container">
 
-				<div class="row-fluid">
+				<div class="row-fluid firstRow">
 					<div class="span12">
 						<h2>Session: <span id="sessionName"></span></h2>
 						<p>Simply wait until a camp changes colour on the map, and then update it here.</p>
