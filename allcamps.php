@@ -1,5 +1,5 @@
 <?php include 'header.php'; ?>
-
+	<?php include_once("analytics.php") ?>
 
 		<?php include 'nav.php'; ?>
 
@@ -24,6 +24,7 @@
 						<p>Simply wait until a camp changes colour on the map, and then update it here.</p>
 						<p>You can also update camps that have not changed hands, just so everyone knows you're watching</p>
 						<p><button onClick="update()" class="btn btn-primary btn-large">Manual Update All</button> &nbsp; Updating also happens automatically every 20 seconds</p>
+						<p>Camps marked in <span class="buffed">red</span> have been flipped in the last 5 minutes and will have the supervisor buff (if updated at the same time as flipped)
 					</div>
 					<div class="span12 errorMessage" id="sessionUpdateError">&nbsp;</div>
 				</div>

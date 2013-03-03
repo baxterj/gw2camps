@@ -84,3 +84,8 @@ footer{
 .opt-grey{
 	background-image: url('../img/camp_grey.png')
 }
+
+.buffed{
+	color: #df3030;
+	font-weight: bold;
+}

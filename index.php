@@ -1,5 +1,5 @@
 <?php include 'header.php'; ?>
-
+	<?php include_once("analytics.php") ?>
 
 		<?php include 'nav.php'; ?>
 

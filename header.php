@@ -2,7 +2,8 @@
 <html>
 <meta charset="UTF-8">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="guild wars 2, gw2, supplycamps, supply camps, gw2camps, camps, world vs world, wvw, wvwvw" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>GW2 Supply Camps</title> 
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen" />
 	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">

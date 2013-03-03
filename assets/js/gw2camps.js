@@ -47,6 +47,7 @@ function redirectExisting(data, messageTarget){
 }
 
 function updateSession(data, messageTarget){
+	clearCounters()
 	if(data.meta.total_count < 1){
 		messageTarget.html('Session not found')
 	}else{
@@ -114,6 +115,9 @@ function updateCamp(id, color){
 }
 
 function successUpdateCamp(data, messageTarget){
+
+	
+
 	$('#img-'+data.id).html('<img src="assets/img/camp_'+data.color + '.png"/>')
 	$('#flip-'+data.id).html(timeSpentSince(processDate(data.lastChanged)))
 	$('#update-'+data.id).html(timeSpentSince(processDate(data.lastUpdate)))
@@ -245,6 +249,13 @@ function sendAjax(data, messageTarget, successFunc, apiLocation, reqType, useAut
 
 }
 
+function clearCounters(){
+	for(var i = 0; i < timers.length; i++){
+		clearInterval(timers[i]);
+	}
+	timers = []
+}
+
 var timers = []
 var updateTimers = true
 function startCount(element)
@@ -279,6 +290,14 @@ function count(elem)
               }
 
  	if(updateTimers){
+ 		if(elem.attr('id').split('-')[0] == 'flip'){
+ 			if(mins < 5 && hour < 1){
+	 			elem.addClass('buffed')
+	 		}else{
+	 			elem.removeClass('buffed')
+	 		}
+ 		}
+ 		
 		elem.html(plz(hour) +":" + plz(mins) + ":" + plz(secs));
 	}
  
